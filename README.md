@@ -4,6 +4,8 @@
 
 A simple script to use the biometric sensor on an Android device as an authentication method and type long master passwords into a PC through a USB cable.
 
+https://github.com/husixu1/ankey/assets/15274807/541b7929-56b2-4295-a9fd-c454116928b3
+
 - It is not a full-featured password manager, It merely remembers and types a few long passwords.
 - There are alternatives like [Keepass2Android][2] + [K2AUSBKeyboard][3], but I prefer my own simple script.
 
