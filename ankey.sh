@@ -176,12 +176,16 @@ ankey.__auth_to_get_bio_key() {
     ankey.__check_bio_auth_availablity || return
     ankey.__check_encryption_availablity "$1" || return
 
-    local termux_fp_output=''
-    { termux_fp_output="$(termux-fingerprint)" &&
-        [[ $termux_fp_output == *'AUTH_RESULT_SUCCESS'* ]]; } || {
-        ankey.err "Termux fingerprint auth failed"
-        return 1
-    }
+    local termux_fp_output='' retries="${_rc[RETRY_COUNT]:-3}" success=false
+    while ((retries--)); do
+        { termux_fp_output="$(termux-fingerprint -t "Unlock password" -c "Nope")" &&
+            [[ $termux_fp_output == *'AUTH_RESULT_SUCCESS'* ]]; } || {
+            ankey.wrn "Biometric auth failed. Retrying ..."
+            sleep 1 && continue
+        }
+        success=true && break
+    done
+    $success || { ankey.err "Termux fingerprint auth failed" && return 1; }
 
     # Sign a nonce with the generated key
     _res="$(base64 -w 0 < <(#
@@ -581,6 +585,8 @@ ankey.main() {
     local -A opts=(
         # Options from command line
         [CONFIG_FILE]="$HOME/.config/ankey/ankey.conf" # The config file
+
+        [RETRY_COUNT]=3 # The number of retries for biometric auth
 
         # Options from config file
         [CONFIGS_TO_SAVE]='FZF NONCE OPENSSL_ITERS NONCE_KEY_ALIAS PW_DICT HID_DEVICE'
