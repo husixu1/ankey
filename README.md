@@ -1,5 +1,7 @@
 # Ankey
 
+**Update 2026-10-24**: After 2 years, KeePassXC 2.8.0 has finally [added quick unlock feature (via polkit)][4] to its Linux client, so I no longer use this script and also won't maintain it further. However, this script is still fun to read and can be useful for other password managers or scenarios that need an automated HID keyboard.
+
 ## What?
 
 A simple script to use the biometric sensor on an Android device as an authentication method and type long master passwords into a PC through a USB cable.
@@ -11,7 +13,7 @@ https://github.com/husixu1/ankey/assets/15274807/541b7929-56b2-4295-a9fd-c454116
 
 ## Why?
 - Typing long passwords repeatedly can be tedious.
-- Keepass(xc) on Linux doesn't support fingerprint yet (Seems like it's planned in 2.8.x but who knows...).
+- ~~Keepass(xc) on Linux doesn't support fingerprint yet (Seems like it's planned in 2.8.x but who knows...).~~
 - It's hard to buy a Linux-compatible fingerprint sensor that supports libfprint for desktop PC.
 - I have an old rooted Android phone that is otherwise useless and collecting dust in my drawer.
 
@@ -40,3 +42,4 @@ The idea is partially taken from [This post][1]. Signed nonce is used as the enc
 [1]:https://microsounds.github.io/notes/termux-ssh-fingerprint.htm
 [2]:https://github.com/PhilippC/keepass2android
 [3]:https://github.com/whs/K2AUSBKeyboard
+[4]:https://github.com/keepassxreboot/keepassxc/releases/tag/2.8.0
